@@ -1,279 +1,238 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Credencial Auri - Portaria Digital</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adpaz- Cadastro de Credencial</title>
+    <style>
+        :root { --azul-auri: #054f77; --azul-claro: #3b82f6; --cinza-bg: #f1f5f9; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--cinza-bg); padding: 20px; display: flex; justify-content: center; margin: 0; }
+        .card { background: white; width: 100%; max-width: 420px; padding: 0 0 25px 0; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 8px solid var(--azul-auri); box-sizing: border-box; overflow: hidden; }
+        
+        .card-header { text-align: center; padding: 25px 25px 15px 25px; border-bottom: 1px solid #f1f5f9; }
+        .logo-box { background: #fff; padding: 10px; border-radius: 12px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.03); margin-bottom: 15px; }
+        .logo-img { width: 62px; height: 47px; object-fit: contain; }
+        h2 { color: var(--azul-auri); margin: 0; font-size: 22px; }
+        p.desc { color: #64748b; font-size: 13px; margin: 5px 0 0 0; }
+        
+        .card-body { padding: 0 25px; }
+        label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 4px; color: #1e293b; text-transform: uppercase; }
+        
+        input, select { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; background: #f8fafc; font-size: 14px; outline: none; transition: 0.3s; }
+        
+        /* Estilo para campo bloqueado (automático) */
+        input[readonly] { background: #e2e8f0; color: #475569; cursor: not-allowed; border-color: #cbd5e1; }
 
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #e9ecef;
-    text-align: center;
-    padding: 15px;
-    margin: 0;
-  }
+        select { color: #64748b; } 
+        select.has-value { color: #1e293b; }
+        input::placeholder { color: #64748b; }
 
-  .box {
-    background: white;
-    padding: 25px;
-    margin: 20px auto;
-    max-width: 380px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  }
-
-  .logo-topo { width: 160px; height: auto; margin-bottom: 20px; }
-
-  .password-container {
-    position: relative;
-    width: 100%;
-  }
-
-  .password-container input {
-    padding-right: 45px;
-  }
-
-  .toggle-password {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 20px;
-    user-select: none;
-    color: #546e7a;
-  }
-
-  input, button {
-    padding: 14px;
-    width: 100%;
-    margin: 10px 0;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    font-size: 16px;
-    outline: none;
-  }
-
-  input:focus {
-    border-color: #003366;
-    box-shadow: 0 0 5px rgba(0, 51, 102, 0.2);
-  }
-
-  button {
-    background-color: #004080; /* Azul Real Escuro */
-    border: none;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  button:hover {
-    background-color: #00264d;
-  }
-
-  /* ESTILO DA CREDENCIAL - AZUL ESCURECIDO */
-  .credencial {
-    margin-top: 5px;
-    padding: 30px 20px 45px 20px;
-    border-radius: 25px;
-    background: #fff;
-    border: 4px solid #003366; /* Azul Safira */
-    box-shadow: 0 15px 40px rgba(0, 51, 102, 0.2);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .watermark {
-    position: absolute;
-    top: 110px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 250px;
-    opacity: 0.08;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .foto-container {
-    position: relative;
-    z-index: 1;
-    margin-bottom: 10px;
-  }
-
-  .foto {
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #003366;
-    background: white;
-  }
-
-  .nome-funcionario {
-    margin: 10px 0 0 0;
-    color: #001a33; /* Quase preto azulado */
-    font-size: 24px;
-    text-transform: uppercase;
-    font-weight: 800;
-  }
-
-  .cargo-funcionario {
-    color: #455a64;
-    font-weight: bold;
-    font-size: 16px;
-    margin: -2px 0 10px 0;
-  }
-
-  .id-numero {
-    font-size: 19px;
-    color: #003366;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 2px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    background-color: #f0f4f8; /* Fundo cinza azulado muito claro */
-    padding: 6px 18px;
-    border-radius: 8px;
-    display: inline-block;
-  }
-
-  .logo-meio {
-    width: 64px;
-    height: 47px;
-    margin: 15px auto 5px auto;
-    display: block;
-  }
-
-  .loja-nome {
-    font-size: 19px;
-    color: #001a33;
-    text-transform: capitalize;
-    font-weight: normal;
-    margin: 0;
-  }
-
-  .validade-discreta {
-    position: absolute;
-    bottom: 12px;
-    right: 18px;
-    font-size: 10px;
-    color: #78909c;
-    font-weight: 600;
-  }
-
-  .btn-voltar {
-    margin-top: 25px;
-    background: #263238;
-    color: white;
-    font-size: 12px;
-    width: auto;
-    padding: 8px 20px;
-  }
-
-  .hidden { display: none !important; }
-  .erro { color: #b71c1c; font-weight: bold; margin-top: 10px; }
-</style>
+        .uppercase-input { text-transform: uppercase; }
+        input:focus:not([readonly]) { border-color: var(--azul-claro); background: #fff; }
+        
+        button { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--azul-claro) 0%, var(--azul-auri) 100%); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; margin-top: 10px; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2); }
+        button:hover { background: #2563eb; }
+        button:disabled { background: #cbd5e1; cursor: not-allowed; opacity: 0.7; box-shadow: none; }
+        
+        #status { margin-top: 15px; font-weight: bold; text-align: center; font-size: 13px; min-height: 20px; }
+        .preview { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; display: none; margin: 0 auto 15px auto; border: 3px solid var(--azul-claro); }
+        .file-box { border: 2px dashed #cbd5e1; padding: 15px; text-align: center; border-radius: 12px; cursor: pointer; margin-bottom: 12px; color: #64748b; font-size: 13px; background: #f8fafc; }
+    </style>
 </head>
 <body>
 
-<div class="box" id="mainBox">
-  
-  <div id="formArea">
-    <img src="auripaz.png" class="logo-topo" alt="Auri Autopeças" onerror="this.src='https://via.placeholder.com/150x50?text=Auri'">
-    <h3>Portaria Digital</h3>
-    
-    <input type="tel" id="cpf" placeholder="Digite seu CPF">
-    
-    <div class="password-container">
-      <input type="password" id="nascimento" placeholder="Digite a Senha" 
-             inputmode="numeric" 
-             readonly 
-             onfocus="this.removeAttribute('readonly');"
-             autocomplete="new-password" 
-             name="campo_aleatorio_auri"
-             spellcheck="false">
-      <span class="toggle-password" id="eyeIcon" onclick="togglePass()">🙈</span>
+<div class="card">
+    <div class="card-header">
+        <div class="logo-box">
+            <img src="logo1.png" alt="Auri Auto Peças" class="logo-img">
+        </div>
+        <h2>Credencial de Identificação</h2>
+        <p class="desc">Cadastramento da Credencial </p>
     </div>
+    
+    <div class="card-body">
+        <form id="formAuri">
+            <label>Foto do Perfil</label>
+            <div class="file-box" onclick="document.getElementById('foto').click()" id="boxTxt">📸 Clique para tirar ou anexar foto</div>
+            <input type="file" id="foto" accept="image/*" style="display:none" required>
+            <center><img id="imgPrev" class="preview"></center>
 
-    <button id="btnBuscar" onclick="buscar()">ACESSAR CREDENCIAL</button>
-  </div>
+            <label>Nome Completo</label>
+            <input type="text" id="nome" class="uppercase-input" placeholder="NOME DO COLABORADOR" required>
 
-  <div id="resultado"></div>
+            <label>CPF (Somente números)</label>
+            <input type="tel" id="cpf" placeholder="00000000000" required maxlength="11">
+
+            <label>Nascimento (DDMMAAAA)</label>
+            <input type="tel" id="nasc" placeholder="Ex: 15051990" required maxlength="8">
+
+            <label>Cargo / Função</label>
+            <input type="text" id="cargo" class="uppercase-input" placeholder="Ex: ASSISTENTE DE MÍDIA" required>
+            
+            <label>Unidade / Congregação</label>
+            <select id="loja" required>
+                <option value="" disabled selected>SELECIONE A UNIDADE</option>
+                <option value="ALDEIAS ESTIVAS">Aldeias Estivas</option>
+                <option value="AREZ">ADpaz - Arez</option>
+                <option value="BAHIA FORMOSA">Bahia Formosa</option>
+                <option value="CAMPO DE SANTANA">Campo de Santana</option>
+                <option value="CAMPO REDONDO">Campo Redondo</option>
+                <option value="CANDELARIA">Candelária</option>
+                <option value="CANGUARETAMA">Canguaretama</option>
+                <option value="CIDADE PRAIA">Cidade Praia</option>
+                <option value="ESPIRITO SANTO">Espírito Santo</option>
+                <option value="GOIANINHA">Goianinha</option>
+                <option value="MAMANGUAPE">Mamanguape</option>
+                <option value="NISIA FLORESTA">Nísia Floresta</option>
+                <option value="NOVA ESPERANCA">Nova Esperança</option>
+                <option value="NOVA FLORESTA">Nova Floresta</option>
+                <option value="PARQUE DOS COQUEIROS">Parque dos Coqueiros</option>
+                <option value="PLANALTO">Planalto</option>
+                <option value="SANTA CRUZ">Santa Cruz</option>
+                <option value="SAO JOSE MIPIBU">São José Mipibu</option>
+                <option value="SAO JOSE DE TOURO">São José de Touro</option>
+                <option value="IGREJA SEDE">Igreja Sede</option>
+                <option value="CIDADE PRAIA">Cidade Praia</option>
+                <option value="ZONA SUL">Zona Sul</option>
+            </select>
+            
+            <label>Identificador (Automático)</label>
+            <input type="tel" id="id_fun" placeholder="Identificador automático" readonly>
+
+            <label>Validade da Credencial</label>
+            <input type="date" id="val" value="2026-12-31">
+
+            <button type="submit" id="btnSalvar">FINALIZAR CADASTRO</button>
+        </form>
+        <div id="status"></div>
+    </div>
 </div>
 
 <script>
-function togglePass() {
-  const input = document.getElementById("nascimento");
-  const icon = document.getElementById("eyeIcon");
-  if (input.type === "password") {
-    input.type = "text";
-    icon.innerText = "👁️"; 
-  } else {
-    input.type = "password";
-    icon.innerText = "🙈"; 
-  }
-}
+    const urlApp = 'https://script.google.com/macros/s/AKfycby03fHctBgisSW8VHyqfh7EUq9XFfOWZGZfaIMoxQk3BtahGEZNa1N3K1bI3l2ZFavc/exec';
+    let base64Img = "";
 
-function buscar() {
-  const formArea = document.getElementById("formArea");
-  const resultadoDiv = document.getElementById("resultado");
-  const btn = document.getElementById("btnBuscar");
-  
-  var cpf = document.getElementById("cpf").value.replace(/\D/g, '');
-  var nascimento = document.getElementById("nascimento").value.replace(/\D/g, '');
+    // Lógica para gerar o ID entrelaçado
+    function gerarID() {
+        const cpf = document.getElementById('cpf').value;
+        const nasc = document.getElementById('nasc').value;
 
-  if (cpf.length < 11 || nascimento.length !== 8) {
-    resultadoDiv.innerHTML = "<p class='erro'>⚠️ Dados incompletos!</p>";
-    return;
-  }
-
-  btn.disabled = true;
-  btn.innerText = "VERIFICANDO...";
-
-  var url = "https://script.google.com/macros/s/AKfycbzynN5FX9nQd2F9rYa0h9GOibyJ9nNmrrmcm3EJH0TrW6VAvInBwinNGW7E1bXxuY4/exec"
-            + "?cpf=" + cpf
-            + "&nascimento=" + nascimento;
-
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      btn.disabled = false;
-      btn.innerText = "ACESSAR CREDENCIAL";
-
-      if (data.status === "ok") {
-        formArea.classList.add("hidden");
-        const fotoFinal = data.foto || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
-
-        resultadoDiv.innerHTML = `
-          <div class="credencial">
-            <img src="logo1.png" class="watermark">
-            <div class="foto-container">
-              <img src="${fotoFinal}" class="foto">
-            </div>
-            <h2 class="nome-funcionario">${data.nome}</h2>
-            <p class="cargo-funcionario">${data.cargo}</p>
+        // Só gera se tiver pelo menos 6 dígitos de CPF e 6 de Nascimento (DDMMAA)
+        if (cpf.length >= 6 && nasc.length >= 6) {
+            const cpfPart = cpf.substring(0, 6);
+            // Pega Dia (2), Mês (2) e os 2 últimos do Ano (pegando da posição 6 e 7 de DDMMAAAA)
+            const nascPart = nasc.substring(0, 4) + nasc.substring(6, 8);
             
-            <div class="id-numero">${data.identificador}</div>
-            
-            <img src="logo1.png" class="logo-meio" alt="Auri Logo">
-            <p class="loja-nome">${data.loja.toLowerCase()}</p>
-            <div class="validade-discreta">Validade: ${data.data}</div>
-            <button class="btn-voltar" onclick="window.location.reload()">SAIR / VOLTAR</button>
-          </div>
-        `;
-      } else {
-        resultadoDiv.innerHTML = "<p class='erro'>❌ Não localizado!</p>";
-      }
-    })
-    .catch(err => {
-      btn.disabled = false;
-      resultadoDiv.innerHTML = "<p class='erro'>Erro de conexão.</p>";
+            let idGerado = "";
+            for (let i = 0; i < 6; i++) {
+                // Entrelaça: um do CPF, um do Nascimento
+                idGerado += cpfPart[i] + nascPart[i];
+            }
+            document.getElementById('id_fun').value = idGerado;
+        } else {
+            document.getElementById('id_fun').value = "";
+        }
+    }
+
+    // Controle de cor do Select
+    const selectLoja = document.getElementById('loja');
+    selectLoja.addEventListener('change', function() {
+        if (this.value !== "") {
+            this.classList.add('has-value');
+        } else {
+            this.classList.remove('has-value');
+        }
     });
-}
+
+    // Inputs numéricos e gatilho do ID
+    const inputsNumericos = ['cpf', 'nasc'];
+    inputsNumericos.forEach(id => {
+        document.getElementById(id).addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, ''); 
+            gerarID(); // Chama a função toda vez que digitar
+        });
+    });
+
+    // Filtros de maiúsculas
+    const inputsUpper = ['nome', 'cargo'];
+    inputsUpper.forEach(id => {
+        document.getElementById(id).addEventListener('input', function() {
+            this.value = this.value.toUpperCase(); 
+        });
+    });
+
+    // Processador de imagem
+    document.getElementById('foto').onchange = e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        document.getElementById('boxTxt').innerText = "✅ Arquivo selecionado!";
+        
+        const reader = new FileReader();
+        reader.onload = ev => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 800;
+                let width = img.width;
+                let height = img.height;
+                if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                canvas.width = width; canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                base64Img = canvas.toDataURL('image/jpeg', 0.7);
+                document.getElementById('imgPrev').src = base64Img;
+                document.getElementById('imgPrev').style.display = 'block';
+                document.getElementById('boxTxt').innerText = "✅ Foto processada!";
+            };
+            img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+    };
+
+    // Envio do formulário
+    document.getElementById('formAuri').onsubmit = e => {
+        e.preventDefault();
+        
+        const idFun = document.getElementById('id_fun').value;
+        if(idFun.length < 12) {
+            alert("Erro: O ID automático ainda não foi gerado. Verifique CPF e Nascimento.");
+            return;
+        }
+
+        const btn = document.getElementById('btnSalvar');
+        const st = document.getElementById('status');
+        btn.disabled = true;
+        st.innerHTML = "⏳ Enviando Cadastro...";
+
+        const query = new URLSearchParams({
+            nome: document.getElementById('nome').value,
+            cpf: document.getElementById('cpf').value,
+            nascimento: document.getElementById('nasc').value,
+            cargo: document.getElementById('cargo').value,
+            loja: document.getElementById('loja').value,
+            identificador: idFun,
+            validade: document.getElementById('val').value
+        });
+
+        fetch(urlApp + "?" + query.toString(), {
+            method: 'POST',
+            mode: 'no-cors',
+            body: base64Img 
+        })
+        .then(() => {
+            st.innerHTML = "<span style='color:green'>✅ Cadastrado com sucesso!</span>";
+            document.getElementById('formAuri').reset();
+            selectLoja.classList.remove('has-value');
+            document.getElementById('imgPrev').style.display = 'none';
+            document.getElementById('boxTxt').innerText = "📸 Clique para tirar ou anexar foto";
+            base64Img = "";
+            btn.disabled = false;
+        })
+        .catch(err => {
+            st.innerHTML = "<span style='color:red'>❌ Erro ao enviar.</span>";
+            btn.disabled = false;
+        });
+    };
 </script>
 
 </body>
