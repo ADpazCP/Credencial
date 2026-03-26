@@ -1,7 +1,7 @@
 {
   "name": "Cadastrar Membro",
   "short_name": "Cadastrar Credencial",
-  "description": "Sistema de Credenciamento Portaria Digital Auri Autopeças",
+  "description": "Sistema de Cadastro para Credencial",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
