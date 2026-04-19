@@ -1,6 +1,6 @@
 // Evento de Instalação
-self.addEventListener('install', (event) => {
-  console.log('SW: Instalado');
+// self.addEventListener('install', (event) => {
+  // console.log('SW: Instalado');
   self.skipWaiting();
 });
 
